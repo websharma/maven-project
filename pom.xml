@@ -3,7 +3,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.vaib</groupId>
-	<artifactId>maven-project</artifactId>
+	<artifactId>mule-app-vaib-project</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>mule</packaging>
 	<name>Mule maven-project Application</name>
@@ -12,9 +12,11 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-		<mule.version>3.9.1</mule.version>
-		<mule.tools.version>1.2</mule.tools.version>
-		<derby.version>10.14.2.0</derby.version>
+	<mule.version>3.9.1</mule.version>
+	<mule.tools.version>1.2</mule.tools.version>
+	<derby.version>10.14.2.0</derby.version>
+	<uid></uid>
+	<pwd></pwd>
 	</properties>
 
 	<build>
@@ -28,6 +30,31 @@
 					<copyToAppsDirectory>true</copyToAppsDirectory>
 				</configuration>
 			</plugin>
+
+	<plugin>
+		<groupId>org.mule.tools.maven</groupId>
+		<artifactId>mule-maven-plugin</artifactId>
+		<version>2.0</version>
+		<configuration>
+			<deploymentType>cloudhub</deploymentType>
+			<muleVersion>${mule.version}</muleVersion>
+			<username>${uid}</username>
+			<password>${pwd}</password>
+			<workerType>Micro</workerType>
+			<redeploy>true</redeploy>
+			<environment>Sandbox</environment>
+		</configuration>
+		<executions>
+			<execution>
+				<id>deploy</id>
+				<phase>deploy</phase>
+				<goals>
+					<goal>deploy</goal>
+				</goals>
+			</execution>
+		</executions>
+	</plugin>
+
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>build-helper-maven-plugin</artifactId>
